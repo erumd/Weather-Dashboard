@@ -14,12 +14,17 @@
 
     <title>Weather Dashboard</title>
 </head>
-<nav>
 
-    
-</nav>
 
 <body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <span class="navbar-brand mb-1 h1" >       </span>
+    
+<!-- Added name to Nav bar  -->
+    <span class="navbar-brand mb-1 h2" > Weather Dashboard </span>
+
+    </nav>
     <!-- <h1> Sugar Land Weather</h1> -->
 
 <!-- THEN I am presented with:
@@ -42,7 +47,8 @@ and the UV index -->
         <div class="row">
           <div class="col order-first w-25 p-3">
             <p class="w-25 p-3">Search for a City:</p>
-          <input type= "text" placeholder="search for a city"> 
+          <input id='searchValue' type="text" placeholder="search for a city"> 
+          <button id="search" class="btn btn-primary">Search</button>
           </div>
       </div>
     </div>
