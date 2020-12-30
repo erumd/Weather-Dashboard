@@ -1,0 +1,37 @@
+
+
+
+/* .header a {
+  float: left;
+  background-color: #ddd;
+  color: black;
+  text-align: center;
+  padding: 12px, 10px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+  font-weight: bold;
+  overflow: hidden;
+} */
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+
+
+
