@@ -15,8 +15,16 @@
   overflow: hidden;
 } */
 
-nav {
+.navbar-brand {
   text-align: center;
+}
+
+p.city {
+  font-weight: bold;
+}
+
+.col-md-10{
+  border: 10px;
 }
 
 ul {
