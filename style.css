@@ -17,6 +17,7 @@
 
 .navbar-brand {
   text-align: center;
+  font-size: 170%;
 }
 
 p.city {
@@ -26,6 +27,17 @@ p.city {
 #forecast {
   font-weight: bold;
 
+}
+
+/* stackoverflow. seach history is highlighted */
+li:hover {
+    
+  background-color:yellow;
+}
+
+li {
+  background-color:white;
+  font-color: black ;
 }
 
 .col-md-10{

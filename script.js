@@ -61,21 +61,63 @@ console.log (APIKey);
   url: queryURL,
   method: "GET",
 dataType: 'json',
+
+
 success: function (response) {
+  // youtube video for icons
+  // var wf ='';
+  // $.each(data.weather), function (index, val) {
+  //   wf += '<p><b>' + data.name + '</b><img src=' + val.icon +'.png></p>'+
+  //   data.main.temp + '&deg;F' + '|' + val.main + "," + val.description
+  // };
+  // $('#showWeatherForecast').html(wf);
   console.log(response);
 
   // display city 
   $('.city').html(`<h1>${response.name} Weather Details</h1>`);
+  // <span class="ui-icon ui-icon-gear"></span>
   $('.wind').text(`Wind Speed: ${response.wind.speed}`);
   $('.humidity').text(`Humidity: ${response.main.humidity}`);
   let temp = `Temperature (k): ${response.main.temp}`;
   temp += `<br />Tempature (F): ${(response.main.temp - 273.15) * 1.80 + 32}`;
   $('.temp').html(temp);
 
+// icon
+
+
 },
 });
 }
 
+// trying to save local searches
+
+// var recentSearches = []; // create an empty javascript array
+
+// //this function is called using the search buttons "onclick"
+// function searchFunction(data) {
+    
+//     recentSearches.push($('#searchValue').val()); // This line puts the value from the text box in an array
+//     $('#searchValue').val(""); //  clear the text box after search
+//     $('#searchHistory').text(""); //clear the seach history window then repopulate with the new array
+    
+//     // the function below loops through the array and adds each item in the array
+//     // to the span element within the Search history arear
+//     $.each(recentSearches, function (index, value) {
+//         $('#searchHistory').append("<li class='historyItem'  onclick='addtotextbox("+index+")'>" + value + '</li>');
+//     });
+// }
+
+// function addtotextbox(id)
+// {
+// $('#searchValue').val(recentSearches[id]);
+// }
+
+
+
+
+
+
+// HARD WORK ***********************************************************************
 
 // GET 5 DAY FORECAST 
 
