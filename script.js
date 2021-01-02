@@ -100,12 +100,12 @@ success: function (response) {
   console.log(response);
 
   // display city and moment using date.Yay
-  $('.city').html(`<h1>${response.name}  ${moment().format('MMMM DD, YYYY')}</h1>`);
+  $('.city').html(`<h2>${response.name} ( ${moment().format('MMMM DD, YYYY')} ) </h2>`);
   // <span class="ui-icon ui-icon-gear"></span>
-  $('.wind').text(`Wind Speed: ${response.wind.speed}`);
-  $('.humidity').text(`Humidity: ${response.main.humidity}`);
+  $('.wind').text(`Wind Speed: ${response.wind.speed} MPH`);
+  $('.humidity').text(`Humidity: ${response.main.humidity}%`);
   let temp = `Temperature (k): ${response.main.temp}`;
-  temp += `<br />Tempature (F): ${(response.main.temp - 273.15) * 1.80 + 32}`;
+  temp += `<br />Temperature (F): ${(response.main.temp - 273.15) * 1.80 + 32}`;
   $('.temp').html(temp);
 
 // icon
