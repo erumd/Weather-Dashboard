@@ -1,5 +1,6 @@
 //  Add search for city to local storage
 // add 5 day forecast
+// add icon
 // add UV index and other important information
 // do css
  
@@ -17,8 +18,18 @@ $(document).ready(function () {
     // run logic to get data from API
     // tutor help
     // weatherSearch(searchValue);
+    
+
   })
 });
+// $('#searchValue').val((localStorage.getItem('9am')));
+// $('body').on('click', function()) {
+//   console.log($(this).data('type'));
+// };
+// trying to get history searches 
+var inputhistory=  $("#searchValue").val()
+$("#inPutHistory").val('')
+
 
   // trying to get search button to add to local storage. added the button id . added jQuery for get documentById and event listener for .on (click)
   // $("#search").on("click", function ()
@@ -41,10 +52,23 @@ $("#search").on("click", function () {
       weatherSearch (search)
       //localStorage["user"] = user ;
       // added "city" as the key. got rid of  "searchValue"
+      // $(".input").inputhistory();
+
       localStorage.setItem ("city", search) ;
       // add .geItem for local storage for a particular key. add "city"
       console.log(localStorage.getItem('city'));
 })
+
+// https://www.jqueryscript.net/ recall history search
+// $(".input").inputhistory({
+  
+//   // an array of predefined values
+//   history: [],
+//   // prevent form submit
+//   preventSubmit:false
+//   });
+  
+
 
 // (param) & arguments. need to create a variable to pass through and use *******
 function weatherSearch (searchValue) {
@@ -55,6 +79,8 @@ console.log (APIKey);
  // Here we are building the URL we need to query the database
 //  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Burundi&appid=" + APIKey;
  var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=" + APIKey;
+ var queryForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&cnt=40&appid=" + APIKey;
+
  console.log (queryURL);
 
  $.ajax({
@@ -73,8 +99,8 @@ success: function (response) {
   // $('#showWeatherForecast').html(wf);
   console.log(response);
 
-  // display city 
-  $('.city').html(`<h1>${response.name} Weather Details</h1>`);
+  // display city and moment using date.Yay
+  $('.city').html(`<h1>${response.name}  ${moment().format('MMMM DD, YYYY')}</h1>`);
   // <span class="ui-icon ui-icon-gear"></span>
   $('.wind').text(`Wind Speed: ${response.wind.speed}`);
   $('.humidity').text(`Humidity: ${response.main.humidity}`);
