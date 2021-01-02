@@ -70,56 +70,111 @@ and the UV index -->
           </div>
       </div>
     </div>
-      <div class="col-md-10 order-last">
+    <!-- <div class="card-group"> -->
+  <!-- <div class="container"> -->
+
+<div class="col-md-10 order-last">
         <div class="col-md-8"> <div class="city"></div> 
         <div class="date">Display Date</div>  
+        <!-- automatic moments date lib not -->
+        <p id="currentDay" class="lead"></p>
+        
         <div class="humidity"></div>
          <div class="wind"> </div>
          <div class="icon"></div>
-         <div class="temp"></div>        
+         <div class="temp"></div>   
+    
+
      <div class="card-group">
- 
+      <div id="forecast"> 5 Day Forecast</div>
+    </div>
+      <div class="card-group"> 
      <div class="card">
-       <img src="..." class="card-img-top" alt="...">
+      
+       <!-- <img src="..." class="card-img-top" alt="...">
        <div class="card-body">
          <h5 div class="wind">Wind</h5> 
          <!-- <h5 class="card-title">Card title</h5> 
          <div class="wind"></div> -->
-         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-       </div>
-       <div class="card-footer">
-         <small class="text-muted">Last updated 3 mins ago</small>
-       </div>
-     </div>
+         <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
+       <!-- </div> -->
+       <!-- <div class="card-footer"> -->
+         <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+       <!-- </div>
+     </div>  -->
  
-     <div class="card">
+     <!-- <div class="card">
        <img src="..." class="card-img-top" alt="...">
        <div class="card-body">
          <h5 div class="humidity">Humidity</h5>
          <!-- <div class=>%</div> -->
-         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+         <!-- <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
        </div>
-       <div class="card-footer">
-         <small class="text-muted">Last updated 3 mins ago</small>
-       </div>
-     </div>
+       <div class="card-footer"> -->
+         <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+       <!-- </div>
+     </div> -->
  
-     <div class="card">
+     <!-- <div class="card">
        <img src="..." class="card-img-top" alt="...">
        <div class="card-body">
          <h5 class="card-title">Card title</h5>
          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
        </div>
        <div class="card-footer">
-         <small class="text-muted">Last updated 3 mins ago</small>
-       </div>
+         <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+       <!-- </div>
      </div>
    </div>
       </div>
-      
-  </div>
+  
+  </div> --> 
+  <!-- blue card  -->
+  <div class="card text-white bg-primary mb-3" style="max-width: 10rem">
+    <!-- <div class="card-header">Header</div> -->
+    <div class="card-body">
+      <h5 class="card-title">Day 1</h5>
+      <p class1="card-text">Temp</p>
+      <p class2="card-text">Humidity</p>
+    </div>
   </div>
 
+  <div class="card text-white bg-primary mb-3" style="max-width: 10rem">
+    <!-- <div class="card-header">Header</div> -->
+    <div class="card-body">
+      <h5 class="card-title">Day 2</h5>
+      <p class1="card-text">Temp</p>
+      <p class2="card-text">Humidity</p>
+    </div>
+  </div>
+
+  <div class="card text-white bg-primary mb-3" style="max-width: 10rem">
+    <!-- <div class="card-header">Header</div> -->
+    <div class="card-body">
+      <h5 class="card-title">Day 3</h5>
+      <p class1="card-text">Temp</p>
+      <p class2="card-text">Humidity</p>
+    </div>
+  </div>
+
+  <div class="card text-white bg-primary mb-3" style="max-width: 10rem">
+    <!-- <div class="card-header">Header</div> -->
+    <div class="card-body">
+      <h5 class="card-title">Day 4</h5>
+      <p class1="card-text">Temp</p>
+      <p class2="card-text">Humidity</p>
+    </div>
+  </div>
+
+  <div class="card text-white bg-primary mb-3" style="max-width: 10rem">
+    <!-- <div class="card-header">Header</div> -->
+    <div class="card-body">
+      <h5 class="card-title">Day 5</h5>
+      <p class1="card-text">Temp</p>
+      <p class2="card-text">Humidity</p>
+    </div>
+  </div>
+  </div>
 
 
     <!-- Stack the columns on mobile by making one full-width and the other half-width -->
@@ -140,13 +195,24 @@ and the UV index -->
 
 
 
-
-
-
+<script>
+  moment().format("dddd, MMMM Do");
+ let now = moment().format("dddd, MMMM Do");
+ function myFunction() {
+   var d = new Date();
+   var n = d.toLocaleString();
+   }
+   myFunction();
+   document.getElementById("currentDay").innerHTML = now;
+   console.log (myFunction);
+</script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- <script type="text/javascript"> -->
+  <!-- moments library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 
 <script src= "./script.js"></script>
 

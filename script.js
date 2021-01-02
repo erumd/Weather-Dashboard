@@ -24,11 +24,6 @@ $(document).ready(function () {
   // $("#search").on("click", function ()
   // $("#search").on("", function ()
 
- 
-
-
-  
-  
 
   // var input = document.getElementById("myInput");
 $('searchValue').keypress (function(event) {
@@ -37,9 +32,6 @@ $('searchValue').keypress (function(event) {
    $("#search").click();
   }
 })
-
-
-
 
 $("#search").on("click", function () {
     // option .key OR .val 
@@ -54,7 +46,7 @@ $("#search").on("click", function () {
       console.log(localStorage.getItem('city'));
 })
 
-// (param) & arguments. need to create a variable to pass through and use 
+// (param) & arguments. need to create a variable to pass through and use *******
 function weatherSearch (searchValue) {
 var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
 console.log (APIKey);
@@ -84,6 +76,8 @@ success: function (response) {
 });
 }
 
+
+// GET 5 DAY FORECAST 
 
 
  // We then created an AJAX call

@@ -23,6 +23,11 @@ p.city {
   font-weight: bold;
 }
 
+#forecast {
+  font-weight: bold;
+
+}
+
 .col-md-10{
   border: 10px;
 }
