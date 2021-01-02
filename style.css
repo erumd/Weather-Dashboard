@@ -29,8 +29,12 @@ p.city {
 
 }
 
+.col-md-2 {
+  background-color: rgb(238, 234, 234);
+}
+
 /* stackoverflow. seach history is highlighted */
-li:hover {
+/* li:hover {
     
   background-color:yellow;
 }
@@ -38,7 +42,7 @@ li:hover {
 li {
   background-color:white;
   font-color: black ;
-}
+} */
 
 .col-md-10{
   border: 10px;
