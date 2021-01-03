@@ -131,7 +131,7 @@ console.log (APIKey);
   $('.city').html(`<h2>${response.name} ( ${moment().format('MMMM DD, YYYY')} ) </h2>`);
   $('.wind').text(`Wind Speed: ${response.wind.speed} MPH`);
   $('.humidity').text(`Humidity: ${response.main.humidity}%`);
-  // let temp = `Temperature (k): ${response.main.temp}`;
+  let temp = `Temperature (k): ${response.main.temp}`;
   temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
   $('.temp').html(temp);
   // lonQuery = (response.coord.lon);
@@ -140,30 +140,53 @@ console.log (APIKey);
   localStorage.setItem('city', `${response.name}`);
 
 
- },
-// F 5 day forecast
-// $("#date1")[0].textContent = moment().utcOffset(utcOffset).add(1, 'd').format('ddd, MMM DD');
-// trying original moments date 
-// $("#date1")[0].html ($ (moment().add(1, 'd').format('ddd, MMM DD')));
+ })
+}
+// 5 DAY FORECAST NOT ABLE TO DO
+//  $.ajax({
+//   url: queryURL,
+//   method: "GET",
+//   // dataType: 'json',
+//  }).then(function (response) {
+//   //  5 day forecast
+//     $('.daysForecast').each(function (){
+//       const order = $(this).attr('id');
+//       // var day = (response.list[order].dt_txt); //[order].dt (Fields in API response)
+//       // var iconID = (response.list[order].weather[0].icon);
+//       var weatherIcon = "http://openweathermap.org/img/w/" + iconID + ".png";
+//       var weatherIconAlt = (response.list[order].weather[0].description) + " icon";
+//       let temp = `Temperature: ${Math.round((response.list[order].main.temp - 273.15) * 1.80 + 32)}°F`;
+//       $(this).text(moment(day).format('MMMM DD, YYYY'));
+//       $(this).next().attr('src', weatherIcon); 
+//       $(this).next().attr('alt', weatherIconAlt);
+//       $(this).next().next().text(temp);
+//       $(this).next().next().next().text(`Humidity: ${response.list[order].main.humidity}%`);
+//     })
 
-// $("#icon1").attr("src", "http://openweathermap.org/img/wn/"+responseOneCall.daily[0].weather[0].icon+"@2x.png")
+ 
+// F 5 day forecast, do it individually 
+// $("#date1").textContent = moment().utcOffset(utcOffset).add(1, 'd').format('ddd, MMM DD');
+// trying original moments date 
+// $("#date1").html ($ (moment().add(1, 'd').format('ddd, MMM DD')));
+
+// $("#icon1").attr("src", "http://openweathermap.org/img/wn/"+responseOneCall.daily.weather.icon+"@2x.png")
 // $("#temp1").text("Temp: Max: " + Math.round(((responseOneCall.daily[0].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((responseOneCall.daily[0].temp.min - 273.15)*(9/5))+32) + "°F")
-// $("#humidity1").text("Humidity: " + responseOneCall.daily[0].humidity + "%")
-// $("#date2")[0].textContent = moment().utcOffset(utcOffset).add(2, 'd').format('ddd, MMM DD')
+// $("#humidity1").text("Humidity: " + responseOneCall.daily.humidity + "%")
+// $("#date2").textContent = moment().utcOffset(utcOffset).add(2, 'd').format('ddd, MMM DD')
 // $("#icon2").attr("src", "http://openweathermap.org/img/wn/"+responseOneCall.daily[1].weather[0].icon+"@2x.png")
 // $("#temp2").text("Temp: Max: " + Math.round(((responseOneCall.daily[1].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((responseOneCall.daily[1].temp.min - 273.15)*(9/5))+32) + "°F")
 // $("#humidity2").text("Humidity: " + responseOneCall.daily[1].humidity + "%")
 
 
-  );
-}
-  
+
+
+})
 
 
 
 
 // closing for $(document).ready()
-});
+
 
 // HARD WORK ***********************************************************************
 
