@@ -120,7 +120,7 @@ console.log (APIKey);
 
  // Here we are building the URL we need to query the database
 //  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Burundi&appid=" + APIKey;
- var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=" + APIKey;
+ var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=" + APIKey;
  var queryForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&cnt=40&appid=" + APIKey;
 
  console.log (queryURL);
