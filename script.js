@@ -17,20 +17,16 @@ $(document).ready(function () {
     $("#searchValue").val('')
     // run logic to get data from API
     // tutor help
-    // weatherSearch(searchValue);
-    
-
+    weatherSearch(searchValue);
   })
-});
+
 // $('#searchValue').val((localStorage.getItem('9am')));
 // $('body').on('click', function()) {
 //   console.log($(this).data('type'));
 // };
 // trying to get history searches 
-var inputhistory=  $("#searchValue").val()
-$("#inPutHistory").val('')
-
-
+// var inputhistory=  $("#searchValue").val()
+// $("#inPutHistory").val('')
   // trying to get search button to add to local storage. added the button id . added jQuery for get documentById and event listener for .on (click)
   // $("#search").on("click", function ()
   // $("#search").on("", function ()
@@ -44,20 +40,22 @@ $('searchValue').keypress (function(event) {
   }
 })
 
-$("#search").on("click", function () {
-    // option .key OR .val 
-      var search= $("#searchValue").val();
-      console.log(search);
-// / need to pass on $("#search") through weatherSearch function******************************. one way bridge from line 44 and 58
-      weatherSearch (search)
-      //localStorage["user"] = user ;
-      // added "city" as the key. got rid of  "searchValue"
-      // $(".input").inputhistory();
+// 2 ONCLICK Events in line 47 and 14. kept line 14
+// $("#search").on("click", function () {
+//     //  get element value with jquery
+//       var search= $("#searchValue").val();
+//       $('#searchValue').val('');
+//       console.log(search);
+// // / need to pass on $("#search") through weatherSearch function******************************. one way bridge from line 44 and 58
+//       weatherSearch (search)
+//       //localStorage["user"] = user ;
+//       // added "city" as the key. got rid of  "searchValue"
+//       // $(".input").inputhistory();
 
-      localStorage.setItem ("city", search) ;
-      // add .geItem for local storage for a particular key. add "city"
-      console.log(localStorage.getItem('city'));
-})
+//       localStorage.setItem ("city", search) ;
+//       // add .geItem for local storage for a particular key. add "city"
+//       console.log(localStorage.getItem('city'));
+// })
 
 // https://www.jqueryscript.net/ recall history search
 // $(".input").inputhistory({
@@ -83,16 +81,15 @@ $("#search").on("click", function () {
 //   row.appendTo('.history');
 // }
 
-// add save searches in button form. Saturday Office Hours
-const cityName = [ ''];
+// add save searches in button form. Saturday Office Hours. Only buttons display no city names. ********
+var cityName = [ 'Houston'];
 
 function createCityButton(){
   cityName.forEach(function (cityName) {
-    const cityNameBtn = $('<button>').attr('data-type', cityName);
+    var cityNameBtn = $('<button>').attr('data-type', cityName);
     $('.city-container').append(cityNameBtn);
   });
 }
-
 
 var createCityButton;
 createCityButton ();
@@ -101,16 +98,13 @@ console.log ($('[name="add-city-button"]'));
 $('[name="add-city-button"]').on('click', function () {
   console.log('TEST EVENT LISTENER');
   $('[name="add-city"]').val();
-  $('.animal-container').empty();
+  $('.city-container').empty();
   createCityButton();
 });
 
-$('body').on('click', 'animal', function () {
+$('body').on('click', '.city', function () {
   console.log($(this).data('type'));
 });
-
-
-
 
 // (param) & arguments. need to create a variable to pass through and use *******
 function weatherSearch (searchValue) {
@@ -121,33 +115,24 @@ console.log (APIKey);
  // Here we are building the URL we need to query the database
 //  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Burundi&appid=" + APIKey;
  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=" + APIKey;
- var queryForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&cnt=40&appid=" + APIKey;
+ var fiveDayForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&cnt=40&appid=" + APIKey;
 
  console.log (queryURL);
 
  $.ajax({
   url: queryURL,
   method: "GET",
-dataType: 'json',
-
-
-success: function (response) {
-  // youtube video for icons
-  // var wf ='';
-  // $.each(data.weather), function (index, val) {
-  //   wf += '<p><b>' + data.name + '</b><img src=' + val.icon +'.png></p>'+
-  //   data.main.temp + '&deg;F' + '|' + val.main + "," + val.description
-  // };
-  // $('#showWeatherForecast').html(wf);
+  // dataType: 'json',
+  }).then(function(response) {
+  
   console.log(response);
 
   // display city and moment using date.Yay
   $('.city').html(`<h2>${response.name} ( ${moment().format('MMMM DD, YYYY')} ) </h2>`);
-  // <span class="ui-icon ui-icon-gear"></span>
   $('.wind').text(`Wind Speed: ${response.wind.speed} MPH`);
   $('.humidity').text(`Humidity: ${response.main.humidity}%`);
-  let temp = `Temperature (k): ${response.main.temp}`;
-  temp += `<br />Temperature (F): ${(response.main.temp - 273.15) * 1.80 + 32}`;
+  // let temp = `Temperature (k): ${response.main.temp}`;
+  temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
   $('.temp').html(temp);
   // lonQuery = (response.coord.lon);
   // latQuery = (response.coord.lat);
@@ -155,9 +140,32 @@ success: function (response) {
   localStorage.setItem('city', `${response.name}`);
 
 
-},
-});
+ },
+// F 5 day forecast
+// $("#date1")[0].textContent = moment().utcOffset(utcOffset).add(1, 'd').format('ddd, MMM DD');
+// trying original moments date 
+// $("#date1")[0].html ($ (moment().add(1, 'd').format('ddd, MMM DD')));
+
+// $("#icon1").attr("src", "http://openweathermap.org/img/wn/"+responseOneCall.daily[0].weather[0].icon+"@2x.png")
+// $("#temp1").text("Temp: Max: " + Math.round(((responseOneCall.daily[0].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((responseOneCall.daily[0].temp.min - 273.15)*(9/5))+32) + "°F")
+// $("#humidity1").text("Humidity: " + responseOneCall.daily[0].humidity + "%")
+// $("#date2")[0].textContent = moment().utcOffset(utcOffset).add(2, 'd').format('ddd, MMM DD')
+// $("#icon2").attr("src", "http://openweathermap.org/img/wn/"+responseOneCall.daily[1].weather[0].icon+"@2x.png")
+// $("#temp2").text("Temp: Max: " + Math.round(((responseOneCall.daily[1].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((responseOneCall.daily[1].temp.min - 273.15)*(9/5))+32) + "°F")
+// $("#humidity2").text("Humidity: " + responseOneCall.daily[1].humidity + "%")
+
+
+  );
 }
+  
+
+
+
+
+// closing for $(document).ready()
+});
+
+// HARD WORK ***********************************************************************
 
 // trying to save local searches
 
@@ -181,13 +189,6 @@ success: function (response) {
 // {
 // $('#searchValue').val(recentSearches[id]);
 // }
-
-
-
-
-
-
-// HARD WORK ***********************************************************************
 
 // GET 5 DAY FORECAST 
 
