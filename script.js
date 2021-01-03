@@ -67,7 +67,49 @@ $("#search").on("click", function () {
 //   // prevent form submit
 //   preventSubmit:false
 //   });
-  
+
+//save history 
+// if (searchValue === true) {
+//   createRow();
+//   $('.searchValue').on('click', (function () {
+//     searchFunction($(this).text(), false);
+//   }));
+// }
+// //create Saved Searches buttons
+// function createRow() {
+//   const row = $('<div>');
+//   const cityName = $('<button>').text(citySearch).attr('class', 'searchValue');
+//   row.append(cityName);
+//   row.appendTo('.history');
+// }
+
+// add save searches in button form. Saturday Office Hours
+const cityName = [ ''];
+
+function createCityButton(){
+  cityName.forEach(function (cityName) {
+    const cityNameBtn = $('<button>').attr('data-type', cityName);
+    $('.city-container').append(cityNameBtn);
+  });
+}
+
+
+var createCityButton;
+createCityButton ();
+console.log ($('[name="add-city-button"]'));
+
+$('[name="add-city-button"]').on('click', function () {
+  console.log('TEST EVENT LISTENER');
+  $('[name="add-city"]').val();
+  $('.animal-container').empty();
+  createCityButton();
+});
+
+$('body').on('click', 'animal', function () {
+  console.log($(this).data('type'));
+});
+
+
 
 
 // (param) & arguments. need to create a variable to pass through and use *******
@@ -107,8 +149,10 @@ success: function (response) {
   let temp = `Temperature (k): ${response.main.temp}`;
   temp += `<br />Temperature (F): ${(response.main.temp - 273.15) * 1.80 + 32}`;
   $('.temp').html(temp);
-
-// icon
+  // lonQuery = (response.coord.lon);
+  // latQuery = (response.coord.lat);
+  // uvFunction(lonQuery, latQuery);
+  localStorage.setItem('city', `${response.name}`);
 
 
 },
