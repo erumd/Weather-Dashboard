@@ -135,12 +135,15 @@ console.log (APIKey);
     let temp = `Temperature (k): ${response.main.temp}`;
     temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
     $('.temp').html(temp);
-    $('.uvi').text('uvi: ${response.uvi}')
-    lat= response.coord.lat; 
-    lon= response.coord.lon;
-
+    $('.uvi').text('uvi: ${response.uvi}') //uv index not displaying
+    lat= response.lat; 
+    lon= response.lon;
+    // need to pass argument and parameter
+    getUV(lat,lon);
 })
+
 // UV Index. strange but had to use jQuery to add lat and lon
+  function getUV (lat,lon) {
     var queryUV= "http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=" + APIKey;
     console.log (queryUV);
     $.ajax({
@@ -149,6 +152,7 @@ console.log (APIKey);
     }).then(function (response) {
 
       var uvIndex = response.current.uvi; 
+      $('.uvi').text(uvIndex);
       var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"uviBtn"});
 
       // var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"#uviBtn"});
@@ -180,10 +184,17 @@ console.log (APIKey);
       // uviBtn[0].style.backgroundColor = 'green';
       // $(".uvi").append(uviBtn[0])
       $(":button").css('background-color', 'green');
-    } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
-      // uviBtn[0].style.backgroundColor = 'yellow';
-      // $(".uvi").append(uviBtn[0]);
-      $(":button").css('background-color', 'yellow');
+
+
+    // } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
+    //   // uviBtn[0].style.backgroundColor = 'yellow';
+    //   // $(".uvi").append(uviBtn[0]);
+    //   $(":button").css('background-color', 'yellow');
+
+    // trying j code******************************************
+  } else if (uvColor > 3 && uvColor <= 6) {
+    $('.uv').css({ 'background-color': 'yellow', 'color': 'black' });
+
 
     } else if ((uvIndex>= 6) && (uvIndex <= 7)){
       // uviBtn[0].style.backgroundColor = 'orange';
@@ -205,7 +216,7 @@ console.log (APIKey);
 
 
     })
-
+  }
   
     // have to enter ($'.class') below or date and city to show up. Manually added dates
     $('.daysForecast1').html(`${moment().add(1, 'd').format('MMMM DD, YYYY')}`);
