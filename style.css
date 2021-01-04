@@ -33,6 +33,12 @@ p.city {
   align-content: center;
 }
 
+.uvi {
+  width: 35px;
+  color: white;
+  text-align: center;
+}
+
 .col-md-2 {
   background-color: rgb(238, 234, 234);
 }

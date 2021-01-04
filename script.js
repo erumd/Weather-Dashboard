@@ -128,24 +128,91 @@ console.log (APIKey);
   console.log(response);
 
   // display city and moment using date.Yay
-  $('.city').html(`<h2>${response.name} ( ${moment().format('MMMM DD, YYYY')} ) </h2>`);
-  $('.wind').text(`Wind Speed: ${response.wind.speed} MPH`);
-  $('.humidity').text(`Humidity: ${response.main.humidity}%`);
-  let temp = `Temperature (k): ${response.main.temp}`;
-  temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
-  $('.temp').html(temp);
-  // lonQuery = (response.coord.lon);
-  // latQuery = (response.coord.lat);
-  // uvFunction(lonQuery, latQuery);
-  localStorage.setItem('city', `${response.name}`);
+    $('.city').html(`<h2>${response.name} ( ${moment().format('MMMM DD, YYYY')} ) </h2>`);
+    localStorage.setItem('city', `${response.name}`);
+    $('.wind').text(`Wind Speed: ${response.wind.speed} MPH`);
+    $('.humidity').text(`Humidity: ${response.main.humidity}%`);
+    let temp = `Temperature (k): ${response.main.temp}`;
+    temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
+    $('.temp').html(temp);
+    $('.uvi').text('uvi: ${response.uvi}')
+    lat= response.coord.lat; 
+    lon= response.coord.lon;
+
+})
+// UV Index. strange but had to use jQuery to add lat and lon
+    var queryUV= "http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=" + APIKey;
+    console.log (queryUV);
+    $.ajax({
+    url: queryUV,
+    method: "GET"
+    }).then(function (response) {
+
+      var uvIndex = response.current.uvi; 
+      // var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"uviBtn"});
+
+      // var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"#uviBtn"});
+      var uviBtn= $(":button").css("background-color", "red");
+
+                    uviBtn[0].textContent = uviIndex;
+                    uviBtn[0].disabled = true;
+      // jQuery 
+
+    //   if (uvIndex <= 2){
+    //     uviBtn[0].style.backgroundColor = 'green';
+    //     $(".uvi").append(uviBtn[0])
+    //   } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
+    //     uviBtn[0].style.backgroundColor = 'yellow';
+    //     $(".uvi").append(uviBtn[0]);
+    //   } else if ((uvIndex>= 6) && (uvIndex <= 7)){
+    //     uviBtn[0].style.backgroundColor = 'orange';
+    //     $(".uvi").append(uviBtn[0]);
+    //   } else if ((uvIndex >= 8) && (uvIndex <= 10)) {
+    //     uviBtn[0].style.backgroundColor = 'red';
+    //     $(".uvi").append(uviBtn[0]);
+    //   } else {
+    //     uviBtn[0].style.backgroundColor = 'violet';
+    //     $(".uvi").append(uviBtn[0]);
+    // };
+
+// W3 schools using jQuery button
+    if (uvIndex <= 2){
+      // uviBtn[0].style.backgroundColor = 'green';
+      // $(".uvi").append(uviBtn[0])
+      $(":button").css('background-color', 'green');
+    } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
+      // uviBtn[0].style.backgroundColor = 'yellow';
+      // $(".uvi").append(uviBtn[0]);
+      $(":button").css('background-color', 'yellow');
+
+    } else if ((uvIndex>= 6) && (uvIndex <= 7)){
+      // uviBtn[0].style.backgroundColor = 'orange';
+      // $(".uvi").append(uviBtn[0]);
+      $('.uvi').css('background-color', 'orange');
+
+    } else if ((uvIndex >= 8) && (uvIndex <= 10)) {
+      // uviBtn[0].style.backgroundColor = 'red';
+      // $(".uvi").append(uviBtn[0]);
+      $('.uvi').css('background-color', 'red');
+
+    } else if (uvIndex >= 8) {
+      // uviBtn[0].style.backgroundColor = 'purple';
+      // $(".uvi").append(uviBtn[0]);
+      $('.uvi').css('background-color', 'purple');
+    }
+    
+    console.log (uvIndex);
+
+
+    })
 
   
-  // have to enter ($'.class') below or date and city to show up. Manually added dates
-  $('.daysForecast1').html(`${moment().add(1, 'd').format('MMMM DD, YYYY')}`);
-  $('.daysForecast2').html(`${moment().add(2, 'd').format('MMMM DD, YYYY')}`);
-  $('.daysForecast3').html(`${moment().add(3, 'd').format('MMMM DD, YYYY')}`);
-  $('.daysForecast4').html(`${moment().add(4, 'd').format('MMMM DD, YYYY')}`);
-  $('.daysForecast5').html(`${moment().add(5, 'd').format('MMMM DD, YYYY')}`);
+    // have to enter ($'.class') below or date and city to show up. Manually added dates
+    $('.daysForecast1').html(`${moment().add(1, 'd').format('MMMM DD, YYYY')}`);
+    $('.daysForecast2').html(`${moment().add(2, 'd').format('MMMM DD, YYYY')}`);
+    $('.daysForecast3').html(`${moment().add(3, 'd').format('MMMM DD, YYYY')}`);
+    $('.daysForecast4').html(`${moment().add(4, 'd').format('MMMM DD, YYYY')}`);
+    $('.daysForecast5').html(`${moment().add(5, 'd').format('MMMM DD, YYYY')}`);
 
 // trying to  do humidity for 5 day forecast 
 // $("#forecastOneHumidity").text("Humidity: " + responseOneCall.daily[0].humidity + "%");
@@ -195,7 +262,10 @@ console.log (APIKey);
   //         hourIterator += 2
   //     }
   // }
-})
+
+
+// UV
+
 
 
  }
