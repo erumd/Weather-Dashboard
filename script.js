@@ -177,10 +177,22 @@ console.log (APIKey);
         // $("#icon1").attr("src", "http://openweathermap.org/img/wn/"+response.daily.weather.icon+"@2x.png")
         // $("#temp1").text("Temp: Max: " + Math.round(((response.daily[0].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((response.daily[0].temp.min - 273.15)*(9/5))+32) + "°F")
         // $("#humidity1").text("Humidity: " + response.daily.humidity + "%")
-        // $("#date2").textContent = moment().utcOffset(utcOffset).add(2, 'd').format('ddd, MMM DD')
+
         // $("#icon2").attr("src", "http://openweathermap.org/img/wn/"+response.daily[1].weather[0].icon+"@2x.png")
         // $("#temp2").text("Temp: Max: " + Math.round(((response.daily[1].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((response.daily[1].temp.min - 273.15)*(9/5))+32) + "°F")
         // $("#humidity2").text("Humidity: " + response.daily[1].humidity + "%")
+
+        // $("#icon3").attr("src", "http://openweathermap.org/img/wn/"+response.daily[2].weather[0].icon+"@2x.png");
+        // $("#temp3").text("Temp: Max: " + Math.round(((response.daily[2].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((responseOneCall.daily[2].temp.min - 273.15)*(9/5))+32) + "°F");
+        // $("#humidity3").text("Humidity: " + response.daily[2].humidity + "%");
+
+        // $("#icon4").attr("src", "http://openweathermap.org/img/wn/"+response.daily[3].weather[0].icon+"@2x.png");
+        // $("#temp4").text("Temp: Max: " + Math.round(((response.daily[3].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((responseOneCall.daily[3].temp.min - 273.15)*(9/5))+32) + "°F");
+        // $("#humidity4").text("Humidity: " + response.daily[3].humidity + "%");
+
+        // $("#icon5").attr("src", "http://openweathermap.org/img/wn/"+response.daily[4].weather[0].icon+"@2x.png");
+        // $("#temp5").text("Temp: Max: " + Math.round(((response.daily[4].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((responseOneCall.daily[4].temp.min - 273.15)*(9/5))+32) + "°F");
+        // $("#humidity5").text("Humidity: " + response.daily[4].humidity + "%");
 
 
         //  function fiveDays() {
