@@ -149,10 +149,10 @@ console.log (APIKey);
     }).then(function (response) {
 
       var uvIndex = response.current.uvi; 
-      // var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"uviBtn"});
+      var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"uviBtn"});
 
       // var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"#uviBtn"});
-      var uviBtn= $(":button").css("background-color", "red");
+      // var uviBtn= $(":button").css("background-color", "red");
 
                     uviBtn[0].textContent = uviIndex;
                     uviBtn[0].disabled = true;
