@@ -125,7 +125,7 @@ console.log (APIKey);
   // dataType: 'json',
   }).then(function(response) {
   
-  console.log(response);
+  console.log("This is the weather data: ",response);
 
   // display city and moment using date.Yay
     $('.city').html(`<h2>${response.name} ( ${moment().format('MMMM DD, YYYY')} ) </h2>`);
@@ -136,30 +136,42 @@ console.log (APIKey);
     temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
     $('.temp').html(temp);
     $('.uvi').text('uvi: ${response.uvi}') //uv index not displaying
-    lat= response.lat; 
-    lon= response.lon;
+    // have to add .coord
+    lat= response.coord.lat; 
+    lon= response.coord.lon;
+    console.log ("This is lat and lon from weather function", lat,lon);
     // need to pass argument and parameter
-    getUV(lat,lon);
+    getUV(lat,lon); //object ananamous
 })
+// need to close function. do not put another function inside but order matters.
+}
 
-// UV Index. strange but had to use jQuery to add lat and lon
+// UV Index. strange but had to use jQuery to add lat and lon. added + in between the quotation marks.
+// lat, lon read but not used. need to pass it to the API
   function getUV (lat,lon) {
-    var queryUV= "http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=" + APIKey;
-    console.log (queryUV);
+    var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
+    console.log (APIKey);
+    // var queryUV= "http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=" + APIKey;
+    // var queryUV= "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + " &appid=" + APIKey;
+    var queryUV= "http://api.openweathermap.org/data/2.5/uvi?lat=" +lat+ "&lon=" +lon+ "&appid=" +APIKey;
+
+    console.log(queryUV);
     $.ajax({
     url: queryUV,
     method: "GET"
     }).then(function (response) {
 
-      var uvIndex = response.current.uvi; 
-      $('.uvi').text(uvIndex);
+      // var uvIndex = response.current.uvi; //
+      console.log (response, "This is the UV API response");
+
+      // $('.uvi').text(uvIndex);
       var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"uviBtn"});
 
       // var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"#uviBtn"});
       // var uviBtn= $(":button").css("background-color", "red");
 
-                    uviBtn[0].textContent = uviIndex;
-                    uviBtn[0].disabled = true;
+                    // uviBtn[0].textContent = uviIndex;
+                    // uviBtn[0].disabled = true;
       // jQuery 
 
     //   if (uvIndex <= 2){
@@ -180,7 +192,7 @@ console.log (APIKey);
     // };
 
 // W3 schools using jQuery button
-    if (uvIndex <= 2){
+    // if (uvIndex <= 2){
       // uviBtn[0].style.backgroundColor = 'green';
       // $(".uvi").append(uviBtn[0])
       $(":button").css('background-color', 'green');
@@ -279,9 +291,9 @@ console.log (APIKey);
 
 
 
- }
+ 
 
-})
+});
 
 // 5 DAY FORECAST (NOT ABLE TO DO)
 //  $.ajax({
