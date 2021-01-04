@@ -1,13 +1,11 @@
 //  Add search for city to local storage
 // add 5 day forecast
 // add icon
-// add UV index and other important information
+// add UV index label
 // do css
  
  
  
- // This is our API key. Add your own API key between the ""
-//  var APIKey = "840c5ef0c60ff8e81310cdc025167953";
 
 // telling html to run after input has been given
 $(document).ready(function () {
@@ -24,12 +22,7 @@ $(document).ready(function () {
 // $('body').on('click', function()) {
 //   console.log($(this).data('type'));
 // };
-// trying to get history searches 
-// var inputhistory=  $("#searchValue").val()
-// $("#inPutHistory").val('')
-  // trying to get search button to add to local storage. added the button id . added jQuery for get documentById and event listener for .on (click)
-  // $("#search").on("click", function ()
-  // $("#search").on("", function ()
+
 
 
   // var input = document.getElementById("myInput");
@@ -40,46 +33,11 @@ $('searchValue').keypress (function(event) {
   }
 })
 
-// 2 ONCLICK Events in line 47 and 14. kept line 14
-// $("#search").on("click", function () {
-//     //  get element value with jquery
-//       var search= $("#searchValue").val();
-//       $('#searchValue').val('');
-//       console.log(search);
-// // / need to pass on $("#search") through weatherSearch function******************************. one way bridge from line 44 and 58
-//       weatherSearch (search)
-//       //localStorage["user"] = user ;
-//       // added "city" as the key. got rid of  "searchValue"
-//       // $(".input").inputhistory();
-
 //       localStorage.setItem ("city", search) ;
 //       // add .geItem for local storage for a particular key. add "city"
 //       console.log(localStorage.getItem('city'));
 // })
 
-// https://www.jqueryscript.net/ recall history search
-// $(".input").inputhistory({
-  
-//   // an array of predefined values
-//   history: [],
-//   // prevent form submit
-//   preventSubmit:false
-//   });
-
-//save history 
-// if (searchValue === true) {
-//   createRow();
-//   $('.searchValue').on('click', (function () {
-//     searchFunction($(this).text(), false);
-//   }));
-// }
-// //create Saved Searches buttons
-// function createRow() {
-//   const row = $('<div>');
-//   const cityName = $('<button>').text(citySearch).attr('class', 'searchValue');
-//   row.append(cityName);
-//   row.appendTo('.history');
-// }
 
 // add save searches in button form. Saturday Office Hours. Only buttons display no city names. ********
 var cityName = [ 'Houston'];
@@ -90,6 +48,9 @@ function createCityButton(){
     $('.city-container').append(cityNameBtn);
   });
 }
+
+      localStorage.setItem ("city", search) ;
+      console.log(localStorage.getItem('city'));
 
 var createCityButton;
 createCityButton ();
@@ -113,9 +74,7 @@ console.log (APIKey);
 
 
  // Here we are building the URL we need to query the database
-//  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Burundi&appid=" + APIKey;
  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=" + APIKey;
-//  var fiveDayForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&cnt=40&appid=" + APIKey;
 
  console.log (queryURL);
 
@@ -135,13 +94,12 @@ console.log (APIKey);
     let temp = `Temperature (k): ${response.main.temp}`;
     temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
     $('.temp').html(temp);
-    $('.uvi').text('uvi: ${response.uvi}') //uv index not displaying
     // have to add .coord
     lat= response.coord.lat; 
     lon= response.coord.lon;
     console.log ("This is lat and lon from weather function", lat,lon);
     // need to pass argument and parameter
-    getUV(lat,lon); //object ananamous
+    getUV(lat,lon); //object anonymous error
 })
 // need to close function. do not put another function inside but order matters.
 }
@@ -151,8 +109,6 @@ console.log (APIKey);
   function getUV (lat,lon) {
     var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
     console.log (APIKey);
-    // var queryUV= "http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=" + APIKey;
-    // var queryUV= "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + " &appid=" + APIKey;
     var queryUV= "http://api.openweathermap.org/data/2.5/uvi?lat=" +lat+ "&lon=" +lon+ "&appid=" +APIKey;
 
     console.log(queryUV);
@@ -161,72 +117,30 @@ console.log (APIKey);
     method: "GET"
     }).then(function (response) {
 
-      // var uvIndex = response.current.uvi; //
+      // add in .value
+      var uvIndex = response.value; //
       console.log (response, "This is the UV API response");
+      var uviBtn = $("<button/>").text(uvIndex);
+      $(".uvi").append(uviBtn);
 
-      // $('.uvi').text(uvIndex);
-      var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"uviBtn"});
-
-      // var uviBtn = $("<button/>", {"class":"btn-sm", type:"button", "id":"#uviBtn"});
-      // var uviBtn= $(":button").css("background-color", "red");
-
-                    // uviBtn[0].textContent = uviIndex;
-                    // uviBtn[0].disabled = true;
-      // jQuery 
-
-    //   if (uvIndex <= 2){
-    //     uviBtn[0].style.backgroundColor = 'green';
-    //     $(".uvi").append(uviBtn[0])
-    //   } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
-    //     uviBtn[0].style.backgroundColor = 'yellow';
-    //     $(".uvi").append(uviBtn[0]);
-    //   } else if ((uvIndex>= 6) && (uvIndex <= 7)){
-    //     uviBtn[0].style.backgroundColor = 'orange';
-    //     $(".uvi").append(uviBtn[0]);
-    //   } else if ((uvIndex >= 8) && (uvIndex <= 10)) {
-    //     uviBtn[0].style.backgroundColor = 'red';
-    //     $(".uvi").append(uviBtn[0]);
-    //   } else {
-    //     uviBtn[0].style.backgroundColor = 'violet';
-    //     $(".uvi").append(uviBtn[0]);
-    // };
-
-// W3 schools using jQuery button
-    // if (uvIndex <= 2){
-      // uviBtn[0].style.backgroundColor = 'green';
-      // $(".uvi").append(uviBtn[0])
+// source: W3 schools using jQuery button
+    if (uvIndex <= 2){
       $(":button").css('background-color', 'green');
 
-
-    // } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
-    //   // uviBtn[0].style.backgroundColor = 'yellow';
-    //   // $(".uvi").append(uviBtn[0]);
-    //   $(":button").css('background-color', 'yellow');
-
-    // trying j code******************************************
-  } else if (uvColor > 3 && uvColor <= 6) {
-    $('.uv').css({ 'background-color': 'yellow', 'color': 'black' });
-
+    } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
+      $(":button").css('background-color', 'yellow');
 
     } else if ((uvIndex>= 6) && (uvIndex <= 7)){
-      // uviBtn[0].style.backgroundColor = 'orange';
-      // $(".uvi").append(uviBtn[0]);
       $('.uvi').css('background-color', 'orange');
 
     } else if ((uvIndex >= 8) && (uvIndex <= 10)) {
-      // uviBtn[0].style.backgroundColor = 'red';
-      // $(".uvi").append(uviBtn[0]);
       $('.uvi').css('background-color', 'red');
 
     } else if (uvIndex >= 8) {
-      // uviBtn[0].style.backgroundColor = 'purple';
-      // $(".uvi").append(uviBtn[0]);
       $('.uvi').css('background-color', 'purple');
     }
     
     console.log (uvIndex);
-
-
     })
   }
   
@@ -236,6 +150,27 @@ console.log (APIKey);
     $('.daysForecast3').html(`${moment().add(3, 'd').format('MMMM DD, YYYY')}`);
     $('.daysForecast4').html(`${moment().add(4, 'd').format('MMMM DD, YYYY')}`);
     $('.daysForecast5').html(`${moment().add(5, 'd').format('MMMM DD, YYYY')}`);
+
+
+    $.ajax({
+        url: queryURL,
+        method: "GET",
+       }).then(function (response) {
+        //  5 day forecast
+          $('.daysForecast').each(function (){
+
+
+          });
+        });
+
+
+
+
+
+
+
+// everything inside document.ready
+  });
 
 // trying to  do humidity for 5 day forecast 
 // $("#forecastOneHumidity").text("Humidity: " + responseOneCall.daily[0].humidity + "%");
@@ -290,10 +225,6 @@ console.log (APIKey);
 // UV
 
 
-
- 
-
-});
 
 // 5 DAY FORECAST (NOT ABLE TO DO)
 //  $.ajax({
