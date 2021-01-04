@@ -94,7 +94,7 @@ console.log (APIKey);
     let temp = `Temperature (k): ${response.main.temp}`;
     temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
     $('.temp').html(temp);
-    // have to add .coord
+    // have to add .coord. learned from console
     lat= response.coord.lat; 
     lon= response.coord.lon;
     console.log ("This is lat and lon from weather function", lat,lon);
@@ -130,7 +130,6 @@ console.log (APIKey);
       console.log (response, "This is the UV API response");
       var uviBtn = $("<button/>").text(uvIndex);
       $(".uvi").append(uviBtn);
-
 // source: W3 schools using jQuery button
     if (uvIndex <= 2){
       $(":button").css('background-color', 'green');
@@ -144,25 +143,30 @@ console.log (APIKey);
       $('.uvi').css('background-color', 'purple');
     }
     console.log (uvIndex);
-    })
+      })
   }
+  function weatherSearch (searchValue) {
+    getUV(lat,lon);
+    forecast(searchValue);
 
-    // function forecast () {
+    function forecast (searchValue) {
+      getUV(lat,lon);
+      forecast(searchValue);
       var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
       console.log ("Forecast", APIKey);
       // API key for 5 days
-      var fiveDayForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=" + APIKey;
+      // var fiveDayForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=" + APIKey;
+      var fiveDayForecast= "http://api.openweathermap.org/data/2.5/uvi?lat=" +lat+ "&lon=" +lon+ "&appid=" +APIKey;
       console.log("This is the var fivDayForecast: ",fiveDayForecast);
-
 
     $.ajax({
         url: fiveDayForecast,
         method: "GET",
        }).then(function (response) {
         $(".fiveDay").each(function () {
-          var position = $(this).attr('id'); // ID in increments of 8: 8 * 3 = 24 hours (3 hour intervals)
-          var day = (response.list[position].dt_txt); // Day inside response
-          var iconID = (response.list[position].weather[0].icon); // find icon ID for website URL lookup
+          var position = $(this).attr('id'); 
+          var day = (response.list[position].dt_txt); // .dt_txt website
+          var iconID = (response.list[position].weather[0].icon); // to find icon go to weather website 
           var weatherIcon = "http://openweathermap.org/img/w/" + iconID + ".png"; // weather icons are located on the openweather website, listed by icon ID inside response
           var weatherIconAlt = (response.list[position].weather[0].description) + " weather icon"; // weather icon alt tag response
           let temp = `Temperature: ${parseFloat((response.list[position].main.temp - 273.15) * 1.80 + 32).toFixed(2)}°F`; // temperature converted from Kelvin
@@ -199,20 +203,16 @@ console.log (APIKey);
            
         //  }
 
-  console.log("This is the 5 day forecast",response);
+ 
 
         //  5 day forecast
 
           
         });
-      
-
-
-
-
-
+      }
 // everything inside document.ready
-  });
+  };
+});
 
 // trying to  do humidity for 5 day forecast 
 // $("#forecastOneHumidity").text("Humidity: " + responseOneCall.daily[0].humidity + "%");
@@ -395,4 +395,44 @@ console.log (APIKey);
 //    // Hint: To convert from Kelvin to Fahrenheit: F = (K - 273.15) * 1.80 + 32
 //    // Create CODE HERE to dump the temperature content into HTML
 
+
+
+// ***************************
+// ****************************************************************
+// individual 5 day forecast commented out 
+
+
+
+    // $("#currentWeather").attr("src", "http://openweathermap.org/img/wn/"+icon+"@2x.png");
+    // $('.temp').text("Temperature " + temp + " °F");
+    // $("#currentHumidity").text("Humidity: " + response.current.humidity + " %");
+        // var icon = response.current.weather[0].icon;
+        // $("#currentWeather").attr("src", "http://openweathermap.org/img/wn/"+icon+"@2x.png");
+// 5 day FORECAST individually added for each day*********************************************************************
+
+        // $("#icon1").attr("src", "http://openweathermap.org/img/wn/"+response.daily.weather.icon+"@2x.png")
+        // try adding class for temp
+        // $("#temp1").text("Temp: Max: " + Math.round(((response.daily.temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((response.daily.temp.min - 273.15)*(9/5))+32) + "°F")
+        // temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
+        // let temp = `Temperature (k): ${response.main.temp}`;
+        // $('.temp1').text("Temp"`${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`);
+        // // $('#temp1').html(temp);
+        // $("#humidity1").text("Humidity: " + response.main.humidity + "%")
+
+        // // $("#icon2").attr("src", "http://openweathermap.org/img/wn/"+response.daily[1].weather[0].icon+"@2x.png")
+        // $("#temp2").text("Temp" + Math.round((response.main.temp - 273.15) * 1.80 + 32) + "°F")
+        // $("#humidity2").text("Humidity: " + response.main[1].humidity + "%")
+
+        // // $("#icon3").attr("src", "http://openweathermap.org/img/wn/"+response.daily[2].weather[0].icon+"@2x.png");
+        // // $("#temp3").text("Temp"  + Math.round(((response.main[2].temp.max - 273.15)*(9/5))+32) + "°F")
+        // $('.temp3').html("Temp" + Math.round((response.main.temp - 273.15) * 1.80 + 32) + "°F");
+        // $("#humidity3").text("Humidity: " + response.main[2].humidity + "%");
+
+        // // $("#icon4").attr("src", "http://openweathermap.org/img/wn/"+response.daily[3].weather[0].icon+"@2x.png");
+        // $("#temp4").text("Temp: Max: " + Math.round((((response.main[3].temp - 273.15)*(9/5))+32)) + "°F");
+        // $("#humidity4").text("Humidity: " + response.main[3].humidity + "%");
+
+        // // $("#icon5").attr("src", "http://openweathermap.org/img/wn/"+response.daily[4].weather[0].icon+"@2x.png");
+        // $("#temp5").text("Temp: Max: " + Math.round(((response.main[4].temp.max - 273.15)*(9/5))+32) + "°F"); 
+        // $("#humidity5").text("Humidity: " + response.main[4].humidity + "%");
 
