@@ -101,6 +101,14 @@ console.log (APIKey);
     // need to pass argument and parameter
     getUV(lat,lon); //object anonymous error
 })
+
+// ADDED THIS HERE SO DATES DO NOT DISPLAY automatically
+//  have to enter ($'.class') below for date and city to show up. Manually added dates
+ $('.daysForecast1').html(`${moment().add(1, 'd').format('MMMM DD, YYYY')}`);
+ $('.daysForecast2').html(`${moment().add(2, 'd').format('MMMM DD, YYYY')}`);
+ $('.daysForecast3').html(`${moment().add(3, 'd').format('MMMM DD, YYYY')}`);
+ $('.daysForecast4').html(`${moment().add(4, 'd').format('MMMM DD, YYYY')}`);
+ $('.daysForecast5').html(`${moment().add(5, 'd').format('MMMM DD, YYYY')}`);
 // need to close function. do not put another function inside but order matters.
 }
 
@@ -126,44 +134,66 @@ console.log (APIKey);
 // source: W3 schools using jQuery button
     if (uvIndex <= 2){
       $(":button").css('background-color', 'green');
-
     } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
       $(":button").css('background-color', 'yellow');
-
     } else if ((uvIndex>= 6) && (uvIndex <= 7)){
       $('.uvi').css('background-color', 'orange');
-
     } else if ((uvIndex >= 8) && (uvIndex <= 10)) {
       $('.uvi').css('background-color', 'red');
-
     } else if (uvIndex >= 8) {
       $('.uvi').css('background-color', 'purple');
     }
-    
     console.log (uvIndex);
     })
   }
-  
-    // have to enter ($'.class') below or date and city to show up. Manually added dates
-    $('.daysForecast1').html(`${moment().add(1, 'd').format('MMMM DD, YYYY')}`);
-    $('.daysForecast2').html(`${moment().add(2, 'd').format('MMMM DD, YYYY')}`);
-    $('.daysForecast3').html(`${moment().add(3, 'd').format('MMMM DD, YYYY')}`);
-    $('.daysForecast4').html(`${moment().add(4, 'd').format('MMMM DD, YYYY')}`);
-    $('.daysForecast5').html(`${moment().add(5, 'd').format('MMMM DD, YYYY')}`);
+
+    // function forecast () {
+      var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
+      console.log ("Forecast", APIKey);
+      // API key for 5 days
+      var fiveDayForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=" + APIKey;
+      console.log("This is the var fivDayForecast: ",fiveDayForecast);
 
 
     $.ajax({
-        url: queryURL,
+        url: fiveDayForecast,
         method: "GET",
        }).then(function (response) {
-        //  5 day forecast
-          $('.daysForecast').each(function (){
-
-
-          });
+        $(".fiveDay").each(function () {
+          var position = $(this).attr('id'); // ID in increments of 8: 8 * 3 = 24 hours (3 hour intervals)
+          var day = (response.list[position].dt_txt); // Day inside response
+          var iconID = (response.list[position].weather[0].icon); // find icon ID for website URL lookup
+          var weatherIcon = "http://openweathermap.org/img/w/" + iconID + ".png"; // weather icons are located on the openweather website, listed by icon ID inside response
+          var weatherIconAlt = (response.list[position].weather[0].description) + " weather icon"; // weather icon alt tag response
+          let temp = `Temperature: ${parseFloat((response.list[position].main.temp - 273.15) * 1.80 + 32).toFixed(2)}°F`; // temperature converted from Kelvin
+          $(this).next().attr('src', weatherIcon); // weather icon display
+          $(this).next().attr('alt', weatherIconAlt); //img alt definition
+          $(this).next().next().text(temp); // Temperature display
+          $(this).next().next().next().text(`Humidity: ${response.list[position].main.humidity}%`); // Humidity
         });
 
 
+        // TRYING TO ADD 5 day forecast INDIVIDUALLY
+        // $("#icon1").attr("src", "http://openweathermap.org/img/wn/"+response.daily.weather.icon+"@2x.png")
+        // $("#temp1").text("Temp: Max: " + Math.round(((response.daily[0].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((response.daily[0].temp.min - 273.15)*(9/5))+32) + "°F")
+        // $("#humidity1").text("Humidity: " + response.daily.humidity + "%")
+        // $("#date2").textContent = moment().utcOffset(utcOffset).add(2, 'd').format('ddd, MMM DD')
+        // $("#icon2").attr("src", "http://openweathermap.org/img/wn/"+response.daily[1].weather[0].icon+"@2x.png")
+        // $("#temp2").text("Temp: Max: " + Math.round(((response.daily[1].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((response.daily[1].temp.min - 273.15)*(9/5))+32) + "°F")
+        // $("#humidity2").text("Humidity: " + response.daily[1].humidity + "%")
+
+
+        //  function fiveDays() {
+           
+        //  }
+
+  console.log("This is the 5 day forecast",response);
+
+        //  5 day forecast
+
+          
+        });
+      
 
 
 
