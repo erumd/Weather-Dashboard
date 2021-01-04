@@ -147,40 +147,61 @@ console.log (APIKey);
   $('.daysForecast4').html(`${moment().add(4, 'd').format('MMMM DD, YYYY')}`);
   $('.daysForecast5').html(`${moment().add(5, 'd').format('MMMM DD, YYYY')}`);
 
-
+// trying to  do humidity for 5 day forecast 
+// $("#forecastOneHumidity").text("Humidity: " + responseOneCall.daily[0].humidity + "%");
 
 
 
   // $("#icon1").attr("src", "http://openweathermap.org/img/wn/"+response.daily.weather.icon+"@2x.png")
   // $("#temp1").text("Temp: Max: " + Math.round(((response.daily[0].temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((response.daily[0].temp.min - 273.15)*(9/5))+32) + "°F")
-  $("#humidity").text("humidity: " + response.daily.humidity + "%")
   
-  $(`#dayHeaderText1`).text(`Day One-1`) 
-  $(`#dayHeaderText2`).text(`Day Two-2`)
-  $(`#dayHeaderText3`).text(`Day Three`)
-  $(`#dayHeaderText4`).text(`Day Four`)
-  $(`#dayHeaderText5`).text(`Day Five`)
-
-  // icon = Object.values(response[hourIterator].weather[0])[3];
-  //         date = response.list[hourIterator].dt_txt;
-  //         tempF = (Object.values(response.list[hourIterator].main)[0]).toFixed(0);
-  //         humidity = Object.values(response.list[hourIterator].main)[7];
-  //         windspeed = Object.values(response.list[hourIterator].wind)[0];
-  //         $(`#icon${i}`).attr(`src`,`https://openweathermap.org/img/wn/${icon}@2x.png`);
-  //         $(`#date${i}`).text(`Day: ${date}`);
-  //         $(`#temp${i}`).text(`Temp: ${tempF}\u00B0F`);
-  //         $(`#humidity${i}`).text(`Humidity: ${humidity}%`);
-  //         $(`#windSpeed${i}`).text(`Wind Speed: ${windspeed}mph`);
-  //         hourIterator += 2
-  //         counter++
-  //         if (counter === 3 && hourIterator < 36) {
-  //             counter = 0
-  //             hourIterator += 2
+  
+  
+  // let hourIterator = 0;
+  // let date = ``;
+  // let icon = ``;
+  // let tempF = 0;
+  // let humidity = 0;
+  // let windspeed = 0;
+  // let counter = 0;
+  // $(`#dayHeaderText1`).text(`Day One`)
+  // $(`#dayHeaderText2`).text(`Day Two`)
+  // $(`#dayHeaderText3`).text(`Day Three`)
+  // $(`#dayHeaderText4`).text(`Day Four`)
+  // $(`#dayHeaderText5`).text(`Day Five`)
+  // for (let i = 1; i < 16; i++) {
+  //     for (let j = 1; j < 6; j++) {
+  //         if (j % 2 === 0) {
+  //             $(`#dayCol${j}`).css(`backgroundColor`,`#ff7777`).css(`border`, `solid black 2px`)
+  //         } else {
+  //             $(`#dayCol${j}`).css(`backgroundColor`,`#ff4141`).css(`border`, `solid black 2px`)
   //         }
+  //     }
+
+  //     icon = Object.values(response.list[hourIterator].weather[0])[3];
+  //     date = response.list[hourIterator].dt_txt;
+  //     tempF = (Object.values(response.list[hourIterator].main)[0]).toFixed(0);
+  //     humidity = Object.values(response.list[hourIterator].main)[7];
+  //     windspeed = Object.values(response.list[hourIterator].wind)[0];
+  //     $(`#icon${i}`).attr(`src`,`https://openweathermap.org/img/wn/${icon}@2x.png`);
+  //     $(`#date${i}`).text(`Day: ${date}`);
+  //     $(`#temp${i}`).text(`Temp: ${tempF}\u00B0F`);
+  //     $(`#humidity${i}`).text(`Humidity: ${humidity}%`);
+  //     $(`#windSpeed${i}`).text(`Wind Speed: ${windspeed}mph`);
+  //     hourIterator += 2
+  //     counter++
+  //     if (counter === 3 && hourIterator < 36) {
+  //         counter = 0
+  //         hourIterator += 2
+  //     }
+  // }
+})
 
 
- })
-}
+ }
+
+})
+
 // 5 DAY FORECAST (NOT ABLE TO DO)
 //  $.ajax({
 //   url: queryURL,
@@ -258,10 +279,7 @@ console.log (APIKey);
 //               counter = 0
 //               hourIterator += 2
 //           }
-      })
-
-
-
+     
 
 
 
@@ -310,6 +328,5 @@ console.log (APIKey);
   
 //    // Hint: To convert from Kelvin to Fahrenheit: F = (K - 273.15) * 1.80 + 32
 //    // Create CODE HERE to dump the temperature content into HTML
-
 
 
