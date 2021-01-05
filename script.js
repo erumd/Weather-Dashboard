@@ -202,7 +202,7 @@ console.log (APIKey);
         url: oneCallAPI, 
         method: "GET",
        }).then(function (response) {
-        $(".fiveDay").each(function () {
+        // $(".fiveDay").each(function () {
           lat= response.coord.lat; 
           lon= response.coord.lon;
           // TRYING TO ADD 5 day forecast INDIVIDUALLY
@@ -232,7 +232,7 @@ console.log (APIKey);
         forecast(searchValue); //calling the forecast function 
 
           
-        });
+        // });
 
 
       });
