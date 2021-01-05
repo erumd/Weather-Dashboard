@@ -134,7 +134,9 @@ console.log (APIKey);
     console.log ("This is lat and lon from weather function", lat,lon);
     // need to pass argument and parameter
     getUV(lat,lon); //object anonymous error
-    forecast(searchValue); //tutor
+    // forecast(searchValue); //tutor
+    forecast(lat, lon); //iyana's help
+
 })
 
 // ADDED THIS HERE SO DATES DO NOT DISPLAY automatically
@@ -185,7 +187,7 @@ console.log (APIKey);
   //   getUV(lat,lon);
   //   forecast(searchValue);
 
-      function forecast (searchValue) {
+      function forecast (lat, lon) {
       var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
       // added lat and lon
       
@@ -203,15 +205,16 @@ console.log (APIKey);
         method: "GET",
        }).then(function (response) {
         // $(".fiveDay").each(function () {
-          lat= response.coord.lat; 
-          lon= response.coord.lon;
+          // lat= response.coord.lat; 
+          // lon= response.coord.lon;
+          // getUV(lat,lon);
           // TRYING TO ADD 5 day forecast INDIVIDUALLY
 
           // response.minutely.hourly[24].temp
         $("#icon1").attr("src", "https://openweathermap.org/img/wn/"+response.daily[0].weather.icon+"@2x.png")
         $('#humidity1').text(`Humidity: ${response.daily[0].humidity}%`);
         // $('#humidity1').text(`Humidity: ${response.current[0].humidity}%`);
-        $('#temp1').text (`<br />Temperature (F): ${Math.round ((response.daily.temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp1').text (`Temperature (F): ${Math.round ((response.daily.temp - 273.15) * 1.80 + 32)}°F`);
 
         $("#icon2").attr("src", "https://openweathermap.org/img/wn/"+response.daily[1].weather[0].icon+"@2x.png")
         $('#humidity2').text(`Humidity: ${response.daily[1].humidity}%`);
