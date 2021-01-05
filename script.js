@@ -24,48 +24,78 @@ $(document).ready(function () {
 // };
 
 
-
-  // var input = document.getElementById("myInput");
-$('searchValue').keypress (function(event) {
-  if (event.keyCode === 7) {
-   event.preventDefault();
-   $("#search").click();
-  }
-})
-
 //       localStorage.setItem ("city", search) ;
 //       // add .geItem for local storage for a particular key. add "city"
 //       console.log(localStorage.getItem('city'));
 // })
 
-
+// *****************************~~~~~~~~~~~~~~~~~~~~~~~~~~
 // add save searches in button form. Saturday Office Hours. Only buttons display no city names. ********
-var cityName = [ 'Houston'];
+var cityName = [ 'Houston', 'Cypress'];
+
+// localStorage.setItem ("city", search) ;
+// console.log(localStorage.getItem('city'));
 
 function createCityButton(){
-  cityName.forEach(function (cityName) {
-    var cityNameBtn = $('<button>').attr('data-type', cityName);
-    $('.city-container').append(cityNameBtn);
-  });
+  // cityName.forEach(function (cityName) {
+  //   var cityNameBtn = $('<button>').attr('data-type', cityName);
+  //   $('.city-container').append(cityNameBtn);
+  // });
+  $("#buttons-view").empty();
+
+  for (var i = 0; i < cityName.length; i++) {
+    var a = $("<button>");
+    // a.addClass("city");
+    // a.attr("data-name", cityName[i]);
+    a.text(cityName[i]);
+    $("#buttons-view").append(a);
+    // createCityButton ();
+  }
 }
-
-      localStorage.setItem ("city", search) ;
-      console.log(localStorage.getItem('city'));
-
-var createCityButton;
-createCityButton ();
-console.log ($('[name="add-city-button"]'));
-
-$('[name="add-city-button"]').on('click', function () {
+// var createCityButton;
+// createCityButton ();
+// console.log ($('[name="add-city-button"]'));
+$('#search').on('click', function () {
   console.log('TEST EVENT LISTENER');
-  $('[name="add-city"]').val();
-  $('.city-container').empty();
-  createCityButton();
+  // $('[name="add-city"]').val();
+  // $('#buttons-view').empty();
+  event.preventDefault();
+  var city = $('searchValue').val().trim;
+  cityName.push(city);
+  createCityButton ();
 });
 
 $('body').on('click', '.city', function () {
   console.log($(this).data('type'));
 });
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~MOnday class Jan 4
+// var cities = ["Houston"];
+
+// function renderButtons() {
+//   // added area where buttons will add
+//   $("aside").empty();
+//   for (var i = 0; i < cities.length; i++) {
+//     var a = $("<button>");
+//     a.addClass("city"); //adding a class
+//     a.attr("data-name", cities[i]);
+//     a.text(cities[i]);
+//     $("#buttons-view").append(a);
+
+//   } 
+// }
+
+// $("#add-city").on("click", function(event) {
+//   event.preventDefault();
+//   var city = $("#movie-city").val().trim();
+//   movies.push(city);
+//   renderButtons();
+
+// });
+
+// Calling the renderButtons function at least once to display the initial list of movies
+
 
 // (param) & arguments. need to create a variable to pass through and use *******
 function weatherSearch (searchValue) {
@@ -145,36 +175,36 @@ console.log (APIKey);
     console.log (uvIndex);
       })
   }
-  function weatherSearch (searchValue) {
-    getUV(lat,lon);
-    forecast(searchValue);
+  // function weatherSearch (searchValue) {
+  //   getUV(lat,lon);
+  //   forecast(searchValue);
 
-    function forecast (searchValue) {
-      getUV(lat,lon);
-      forecast(searchValue);
-      var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
-      console.log ("Forecast", APIKey);
-      // API key for 5 days
-      // var fiveDayForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=" + APIKey;
-      var fiveDayForecast= "http://api.openweathermap.org/data/2.5/uvi?lat=" +lat+ "&lon=" +lon+ "&appid=" +APIKey;
-      console.log("This is the var fivDayForecast: ",fiveDayForecast);
+  //   function forecast (searchValue) {
+  //     getUV(lat,lon);
+  //     forecast(searchValue);
+  //     var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
+  //     console.log ("Forecast", APIKey);
+  //     // API key for 5 days
+  //     // var fiveDayForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=" + APIKey;
+  //     var fiveDayForecast= "http://api.openweathermap.org/data/2.5/uvi?lat=" +lat+ "&lon=" +lon+ "&appid=" +APIKey;
+  //     console.log("This is the var fivDayForecast: ",fiveDayForecast);
 
-    $.ajax({
-        url: fiveDayForecast,
-        method: "GET",
-       }).then(function (response) {
-        $(".fiveDay").each(function () {
-          var position = $(this).attr('id'); 
-          var day = (response.list[position].dt_txt); // .dt_txt website
-          var iconID = (response.list[position].weather[0].icon); // to find icon go to weather website 
-          var weatherIcon = "http://openweathermap.org/img/w/" + iconID + ".png"; // weather icons are located on the openweather website, listed by icon ID inside response
-          var weatherIconAlt = (response.list[position].weather[0].description) + " weather icon"; // weather icon alt tag response
-          let temp = `Temperature: ${parseFloat((response.list[position].main.temp - 273.15) * 1.80 + 32).toFixed(2)}°F`; // temperature converted from Kelvin
-          $(this).next().attr('src', weatherIcon); // weather icon display
-          $(this).next().attr('alt', weatherIconAlt); //img alt definition
-          $(this).next().next().text(temp); // Temperature display
-          $(this).next().next().next().text(`Humidity: ${response.list[position].main.humidity}%`); // Humidity
-        });
+  //   $.ajax({
+  //       url: fiveDayForecast,
+  //       method: "GET",
+  //      }).then(function (response) {
+  //       $(".fiveDay").each(function () {
+  //         var position = $(this).attr('id'); 
+  //         var day = (response.list[position].dt_txt); // .dt_txt website
+  //         var iconID = (response.list[position].weather[0].icon); // to find icon go to weather website 
+  //         var weatherIcon = "http://openweathermap.org/img/w/" + iconID + ".png"; // weather icons are located on the openweather website, listed by icon ID inside response
+  //         var weatherIconAlt = (response.list[position].weather[0].description) + " weather icon"; // weather icon alt tag response
+  //         let temp = `Temperature: ${parseFloat((response.list[position].main.temp - 273.15) * 1.80 + 32).toFixed(2)}°F`; // temperature converted from Kelvin
+  //         $(this).next().attr('src', weatherIcon); // weather icon display
+  //         $(this).next().attr('alt', weatherIconAlt); //img alt definition
+  //         $(this).next().next().text(temp); // Temperature display
+  //         $(this).next().next().next().text(`Humidity: ${response.list[position].main.humidity}%`); // Humidity
+  //       });
 
 
         // TRYING TO ADD 5 day forecast INDIVIDUALLY
@@ -209,10 +239,10 @@ console.log (APIKey);
 
           
         });
-      }
+      // }
 // everything inside document.ready
-  };
-});
+  // };
+// });
 
 // trying to  do humidity for 5 day forecast 
 // $("#forecastOneHumidity").text("Humidity: " + responseOneCall.daily[0].humidity + "%");
@@ -410,13 +440,9 @@ console.log (APIKey);
         // $("#currentWeather").attr("src", "http://openweathermap.org/img/wn/"+icon+"@2x.png");
 // 5 day FORECAST individually added for each day*********************************************************************
 
+        // // try adding class for temp
         // $("#icon1").attr("src", "http://openweathermap.org/img/wn/"+response.daily.weather.icon+"@2x.png")
-        // try adding class for temp
-        // $("#temp1").text("Temp: Max: " + Math.round(((response.daily.temp.max - 273.15)*(9/5))+32) + "°F, Min: " + Math.round(((response.daily.temp.min - 273.15)*(9/5))+32) + "°F")
-        // temp += `<br />Temperature (F): ${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`;
-        // let temp = `Temperature (k): ${response.main.temp}`;
         // $('.temp1').text("Temp"`${Math.round ((response.main.temp - 273.15) * 1.80 + 32)}°F`);
-        // // $('#temp1').html(temp);
         // $("#humidity1").text("Humidity: " + response.main.humidity + "%")
 
         // // $("#icon2").attr("src", "http://openweathermap.org/img/wn/"+response.daily[1].weather[0].icon+"@2x.png")
