@@ -135,7 +135,7 @@ console.log (APIKey);
     // need to pass argument and parameter
     getUV(lat,lon); //object anonymous error
     // forecast(searchValue); //tutor
-    forecast(lat, lon); //iyana's help
+    forecast(lat, lon); //iyana's help to call lat bc was undefined to get 5 day forecast. 
 
 })
 
@@ -187,7 +187,7 @@ console.log (APIKey);
   //   getUV(lat,lon);
   //   forecast(searchValue);
 
-      function forecast (lat, lon) {
+      function forecast (lat, lon) {  //replaced (lat,lon) with (searchValue) and humidity showed up
       var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
       // added lat and lon
       
@@ -205,32 +205,33 @@ console.log (APIKey);
         method: "GET",
        }).then(function (response) {
         // $(".fiveDay").each(function () {
+          // deleted below to get 5 day forecast
           // lat= response.coord.lat; 
           // lon= response.coord.lon;
           // getUV(lat,lon);
           // TRYING TO ADD 5 day forecast INDIVIDUALLY
 
           // response.minutely.hourly[24].temp
-        $("#icon1").attr("src", "https://openweathermap.org/img/wn/"+response.daily[0].weather.icon+"@2x.png")
+        $("#icon1").attr("src", "https://openweathermap.org/img/wn/"+response.daily[0].weather[0].icon+"@2x.png");
         $('#humidity1').text(`Humidity: ${response.daily[0].humidity}%`);
         // $('#humidity1').text(`Humidity: ${response.current[0].humidity}%`);
-        $('#temp1').text (`Temperature (F): ${Math.round ((response.daily.temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp1').text (`Temperature (F): ${((response.daily[0].temp))}°F`);
 
         $("#icon2").attr("src", "https://openweathermap.org/img/wn/"+response.daily[1].weather[0].icon+"@2x.png")
         $('#humidity2').text(`Humidity: ${response.daily[1].humidity}%`);
-        $('#temp2').text (`<br />Temperature (F): ${Math.round ((response.daily[1].temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp2').text (`Temperature (F): ${parseInt((response.daily[1].temp - 273.15) * 1.80 + 32)}°F`);
 
         $("#icon3").attr("src", "https://openweathermap.org/img/wn/"+response.daily[2].weather[0].icon+"@2x.png");
         $('#humidity3').text(`Humidity: ${response.daily[2].humidity}%`);
-        $('#temp3').text (`<br />Temperature (F): ${Math.round ((response.daily[2].temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp3').text (`Temperature (F): ${Math.round ((response.daily[2].temp - 273.15) * 1.80 + 32)}°F`);
 
         $("#icon4").attr("src", "https://openweathermap.org/img/wn/"+response.daily[3].weather[0].icon+"@2x.png");
         $('#humidity4').text(`Humidity: ${response.daily[3].humidity}%`);
-        $('#temp4').text (`<br />Temperature (F): ${Math.round ((response.daily[3].temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp4').text (`Temperature (F): ${Math.round ((response.daily[3].temp - 273.15) * 1.80 + 32)}°F`);
 
         $("#icon5").attr("src", "https://openweathermap.org/img/wn/"+response.daily[4].weather[0].icon+"@2x.png");
         $('#humidity5').text(`Humidity: ${response.daily[4].humidity}%`);
-        $('#temp5').text (`<br />Temperature (F): ${Math.round ((response.daily[4].temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp5').text (`Temperature (F): ${Math.round ((response.daily[4].temp - 273.15) * 1.80 + 32)}°F`);
 
         forecast(searchValue); //calling the forecast function 
 
