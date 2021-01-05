@@ -71,29 +71,70 @@ $(document).ready(function () {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UN COMMENT OUT 
 
 // tutor
-var cityName = ["Houston"];
+var cityNames = ["Houston"];
   function createCityButton() {
-    cityName.forEach(function (cityName) {
-      var cityNameBtn = $("<button>").attr("data-type", cityName);
+    $('#city-container').html ("");
+    for (var i = 0; i < cityNames.length; i++) {
+      var cityNameBtn= $("<button>").attr("data-type", cityNames [i]); 
+      cityNameBtn.text(cityNames[i]);
+      // adding id attribute on html from java
+      cityNameBtn.attr('id', 'cityId');
       $(".city-container").append(cityNameBtn);
-    });
+
+
+    
+    }
   }
+
+// trying to do a loop
+  // function createCityButton() {
+  //   cityNames.forEach(function (cityName) {
+  //     var cityNameBtn = $("<button>").attr("data-type", cityNames);
+  //     var searchValue= $('#searchValue').val();
+  //     $(cityNameBtn).val(searchValue);
+  //     $(".city-container").append(cityNameBtn);
+  //     // adding input search value to buttons
+  //     console.log (searchValue);
+  //   });
+  // }
   localStorage.setItem("city", search);
   console.log(localStorage.getItem("city"));
+
   var createCityButton;
   createCityButton();
   console.log($('[name="add-city-button"]'));
-  $('[name="add-city-button"]').on("click", function () {
+  $('[name="add-city-button"]').on("click", function (event) {
+      event.preventDefault();
+      $('#city-container').html ("");
+      // $('#city-container').empty();
     console.log("TEST EVENT LISTENER");
     $('[name="add-city"]').val();
+    // need to add the bottom to get value in a button
+    cityNames.push($('[name="add-city"]').val());
     $(".city-container").empty();
     createCityButton();
+    cityNames.push($('#searchValue').val());
+    // searchInput;
+    
+    var searchInput= $('#searchValue').val();
+    createCityButton(searchInput);
+    console.log(cityNames);
+    
   });
+
+
+   // trying to get buttons to click and show city temp
+$('#cityId').on('click', function ()  {
+  var city = $(this).attr('data-type');
+  console.log (city);
+});
+ 
 
 
 $('body').on('click', '.city', function () {
   console.log($(this).data('type'));
 });
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~MOnday class Jan 4
@@ -112,6 +153,12 @@ console.log (APIKey);
  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=" + APIKey;
 
  console.log (queryURL);
+
+//  var city = $('#cityId').attr("data-type");
+//  console.log (city);
+
+
+
 
  $.ajax({
   url: queryURL,
@@ -164,20 +211,22 @@ console.log (APIKey);
 
       // add in .value
       var uvIndex = response.value; //
+      // trying to empty the UV button 
+      $('.uvi').html(''); 
       console.log (response, "This is the UV API response");
-      var uviBtn = $("<button/>").text(uvIndex);
+      var uviBtn = $("<button/>").text (` UV: ${uvIndex}`);
       $(".uvi").append(uviBtn);
 // source: W3 schools using jQuery button
     if (uvIndex <= 2){
-      $(":button").css('background-color', 'green');
+      $(".uvi button").css('background-color', 'green');
     } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
-      $(":button").css('background-color', 'yellow');
+      $(".uvi button").css('background-color', 'yellow');
     } else if ((uvIndex>= 6) && (uvIndex <= 7)){
-      $('.uvi').css('background-color', 'orange');
+      $('.uvi button').css('background-color', 'orange');
     } else if ((uvIndex >= 8) && (uvIndex <= 10)) {
-      $('.uvi').css('background-color', 'red');
+      $('.uvi button').css('background-color', 'red');
     } else if (uvIndex >= 8) {
-      $('.uvi').css('background-color', 'purple');
+      $('.uvi button').css('background-color', 'purple');
     }
     console.log (uvIndex);
       })
@@ -215,23 +264,24 @@ console.log (APIKey);
         $("#icon1").attr("src", "https://openweathermap.org/img/wn/"+response.daily[0].weather[0].icon+"@2x.png");
         $('#humidity1').text(`Humidity: ${response.daily[0].humidity}%`);
         // $('#humidity1').text(`Humidity: ${response.current[0].humidity}%`);
-        $('#temp1').text (`Temperature (F): ${((response.daily[0].temp))}°F`);
+        $('#temp1').text (`Temperature (F): ${Math.round((response.daily[0].temp.day - 273.15) * 1.80 + 32)}°F`);
+        console.log (response.daily[0].temp);
 
         $("#icon2").attr("src", "https://openweathermap.org/img/wn/"+response.daily[1].weather[0].icon+"@2x.png")
         $('#humidity2').text(`Humidity: ${response.daily[1].humidity}%`);
-        $('#temp2').text (`Temperature (F): ${parseInt((response.daily[1].temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp2').text (`Temperature (F): ${Math.round((response.daily[1].temp.day - 273.15) * 1.80 + 32)}°F`);
 
         $("#icon3").attr("src", "https://openweathermap.org/img/wn/"+response.daily[2].weather[0].icon+"@2x.png");
         $('#humidity3').text(`Humidity: ${response.daily[2].humidity}%`);
-        $('#temp3').text (`Temperature (F): ${Math.round ((response.daily[2].temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp3').text (`Temperature (F): ${Math.round ((response.daily[2].temp.day - 273.15) * 1.80 + 32)}°F`);
 
         $("#icon4").attr("src", "https://openweathermap.org/img/wn/"+response.daily[3].weather[0].icon+"@2x.png");
         $('#humidity4').text(`Humidity: ${response.daily[3].humidity}%`);
-        $('#temp4').text (`Temperature (F): ${Math.round ((response.daily[3].temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp4').text (`Temperature (F): ${Math.round ((response.daily[3].temp.day - 273.15) * 1.80 + 32)}°F`);
 
         $("#icon5").attr("src", "https://openweathermap.org/img/wn/"+response.daily[4].weather[0].icon+"@2x.png");
         $('#humidity5').text(`Humidity: ${response.daily[4].humidity}%`);
-        $('#temp5').text (`Temperature (F): ${Math.round ((response.daily[4].temp - 273.15) * 1.80 + 32)}°F`);
+        $('#temp5').text (`Temperature (F): ${Math.round ((response.daily[4].temp.day - 273.15) * 1.80 + 32)}°F`);
 
         forecast(searchValue); //calling the forecast function 
 
