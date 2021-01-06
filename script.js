@@ -169,6 +169,7 @@ console.log (APIKey);
 
   // display city and moment using date.Yay
     $('.city').html(`<h2>${response.name} ( ${moment().format('MMMM DD, YYYY')} ) </h2>`);
+    $("#icon0").attr("src", "https://openweathermap.org/img/wn/"+response.weather[0].icon+"@2x.png");
     localStorage.setItem('city', `${response.name}`);
     $('.wind').text(`Wind Speed: ${response.wind.speed} MPH`);
     $('.humidity').text(`Humidity: ${response.main.humidity}%`);
@@ -261,6 +262,8 @@ console.log (APIKey);
           // TRYING TO ADD 5 day forecast INDIVIDUALLY
 
           // response.minutely.hourly[24].temp
+
+
         $("#icon1").attr("src", "https://openweathermap.org/img/wn/"+response.daily[0].weather[0].icon+"@2x.png");
         $('#humidity1').text(`Humidity: ${response.daily[0].humidity}%`);
         // $('#humidity1').text(`Humidity: ${response.current[0].humidity}%`);
