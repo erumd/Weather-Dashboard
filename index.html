@@ -45,7 +45,7 @@ add UV index
             <!-- changed class from city to citySearch so city and date do not display twice -->
             <form>
               <p class="citySearch">Search for a City:</p>
-            <input id='searchValue' type="text" name= 'add-cityName' value= '' placeholder="search for a city"> </input> 
+            <input id='searchValue' type="text" name='add-cityName' value= '' placeholder="search for a city"> </input> 
             <button name="add-city-button" id="search" class="btn btn-primary"  type= "submit">Search</button>
             <div id="buttons-view2"></div>
           </form>
@@ -55,18 +55,28 @@ add UV index
   </div>
   
 <div class="col-md-10 order-last">
-        <div class="col-md-14"> <div class="city"></div> 
+        <div class="col-md-14"> 
+          <h3 class="city">City:</h3> 
+          <h3 class="date"></h3> 
+
         <p id="currentDay" class="lead"></p>
         <img id= "icon0" src= "http://openweathermap.org/img/wn/01d@2x.png" alt= "icon"> 
-        <div class="humidity"></div>
-         <div class="wind"> </div>
+        <h6 class="humidity">Humidity:</h6>
+         <h6 class="wind">Wind Speed:</h6>
          <div class="icon"></div>
-         <div class="temp"></div>  
+         <h6 class="temp">Temperature:</h6>  
          <!-- trying to get UV index label to display -->
-         <div class="uvi" type="button" value="UV Index">
-          <!-- below did not work -->
-         <p value="UV Index"> </p>
-        </div> 
+         <div class="uvi" type="button" value="UV Index"> </div> 
+         <h6 value="UV Index"> UV Index Scale: </h6>
+         <p> 1-2 Low, favorable </p>
+         <p> 3-5 Moderate </p>
+         <p> 6-7 High </p>
+         <p> 8-10 Very High </p>
+         <p> 11+ Extreme </p>
+
+
+         
+        
         <br>
         <br>
      <div class="card-group">

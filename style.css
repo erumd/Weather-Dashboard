@@ -31,8 +31,12 @@ p.city {
 }
 
 #searchValue {
-  align-content: center;
+  display: flex;
 }
+
+.container-fluid {
+  display:flex; 
+}       
 
 .uvi {
   width: 40px;
@@ -42,6 +46,8 @@ p.city {
 
 .col-md-2 {
   background-color: rgb(238, 234, 234);
+  display: flex;
+  
 }
 
 /* stackoverflow. seach history is highlighted */
@@ -74,7 +80,10 @@ ul {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+  }
 
-
-
-
+  @media screen and (max-width: 768px) {
+    body {
+      background: #94c0f5;
+    }
+  } 

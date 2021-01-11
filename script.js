@@ -72,68 +72,53 @@ $(document).ready(function () {
 
 // tutor
 var cityNames = ["Houston"];
+
   function createCityButton() {
-    $('#city-container').html ("");
-    for (var i = 0; i < cityNames.length; i++) {
-      var cityNameBtn= $("<button>").attr("data-type", cityNames [i]); 
-      cityNameBtn.text(cityNames[i]);
+    cityNames.forEach(function (city) {
+    // for (var i = 0; i < cityNames.length; i++) {
+      // removed [i] after cityNames
+      var cityNameBtn= $("<button>").attr("data-type", city); 
+      // cityNameBtn.text(cityNames[i]); when REMOVED [i] all city searches display houston
+      // when i get rid of the below line the houston text is not there
+      cityNameBtn.text(city);
+
       // adding id attribute on html from java
-      cityNameBtn.attr('id', 'cityId');
+      cityNameBtn.attr('type', 'button');
+      // SOMETHING NEW I ADDED BUT NOTING HAPPENED. ADD function name NOT array
+      cityNameBtn.addClass('city');
       $(".city-container").append(cityNameBtn);
-
-
-    
-    }
+    });
   }
-
-// trying to do a loop
-  // function createCityButton() {
-  //   cityNames.forEach(function (cityName) {
-  //     var cityNameBtn = $("<button>").attr("data-type", cityNames);
-  //     var searchValue= $('#searchValue').val();
-  //     $(cityNameBtn).val(searchValue);
-  //     $(".city-container").append(cityNameBtn);
-  //     // adding input search value to buttons
-  //     console.log (searchValue);
-  //   });
-  // }
-  localStorage.setItem("city", search);
-  console.log(localStorage.getItem("city"));
 
   var createCityButton;
   createCityButton();
   console.log($('[name="add-city-button"]'));
-  $('[name="add-city-button"]').on("click", function (event) {
+
+  $('[name="add-city-button"]').on("click", function () {
+
+    // need prevent default for page to load
       event.preventDefault();
-      $('#city-container').html ("");
+      // code works fine with below code
+      // $('#city-container').html ("");
       // $('#city-container').empty();
+
     console.log("TEST EVENT LISTENER");
     $('[name="add-city"]').val();
-    // need to add the bottom to get value in a button
+    // need to add the bottom to get value in a button****************I think this is missing piece. 
     cityNames.push($('[name="add-city"]').val());
     $(".city-container").empty();
     createCityButton();
-    cityNames.push($('#searchValue').val());
-    // searchInput;
-    
-    var searchInput= $('#searchValue').val();
-    createCityButton(searchInput);
-    console.log(cityNames);
-    
   });
-
-
    // trying to get buttons to click and show city temp
 $('#cityId').on('click', function ()  {
   var city = $(this).attr('data-type');
   console.log (city);
+  console.log ($('#searchValue').val());
 });
  
 
 
-$('body').on('click', '.city', function () {
-  console.log($(this).data('type'));
-});
+
 
 
 
@@ -152,7 +137,7 @@ console.log (APIKey);
  // Here we are building the URL we need to query the database
  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=" + APIKey;
 
- console.log (queryURL);
+ console.log (queryURL, "this is with search results");
 
 //  var city = $('#cityId').attr("data-type");
 //  console.log (city);
@@ -188,7 +173,7 @@ console.log (APIKey);
 })
 
 // ADDED THIS HERE SO DATES DO NOT DISPLAY automatically
-//  have to enter ($'.class') below for date and city to show up. Manually added dates
+//  have to enter ($'.class') below for date and city to show up. 
  $('.daysForecast1').html(`${moment().add(1, 'd').format('MMMM DD, YYYY')}`);
  $('.daysForecast2').html(`${moment().add(2, 'd').format('MMMM DD, YYYY')}`);
  $('.daysForecast3').html(`${moment().add(3, 'd').format('MMMM DD, YYYY')}`);
@@ -215,13 +200,13 @@ console.log (APIKey);
       // trying to empty the UV button 
       $('.uvi').html(''); 
       console.log (response, "This is the UV API response");
-      var uviBtn = $("<button/>").text (` UV: ${uvIndex}`);
+      var uviBtn = $("<button/>").text (` Current UV Index: ${uvIndex}`);
       $(".uvi").append(uviBtn);
 // source: W3 schools using jQuery button
     if (uvIndex <= 2){
       $(".uvi button").css('background-color', 'green');
     } else if ((uvIndex >= 2) && (uvIndex <= 5)) {
-      $(".uvi button").css('background-color', 'yellow');
+      ($(".uvi button").css)('background-color', 'yellow');
     } else if ((uvIndex>= 6) && (uvIndex <= 7)){
       $('.uvi button').css('background-color', 'orange');
     } else if ((uvIndex >= 8) && (uvIndex <= 10)) {
@@ -245,7 +230,7 @@ console.log (APIKey);
       console.log ("Forecast", APIKey);
   //     // API key for 5 days
   //     // var fiveDayForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=" + APIKey;
-  var oneCallAPI= "https://api.openweathermap.org/data/2.5/onecall?lat=" +lat+ "&lon=" +lon+ "&exclude=currently,minutely,hourly,alerts&appid=" + APIKey;
+  var oneCallAPI= "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=currently,minutely,hourly,alerts&appid=" + APIKey;
       // var fiveDayForecast= "http://api.openweathermap.org/data/2.5/uvi?lat=" +lat+ "&lon=" +lon+ "&appid=" +APIKey;
       console.log("This is the var fivDayForecast: ",oneCallAPI);
 
@@ -290,8 +275,5 @@ console.log (APIKey);
 
 
       });
-
-   
       };
-
     });
