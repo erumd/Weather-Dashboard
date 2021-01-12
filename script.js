@@ -1,8 +1,3 @@
-//  Add search for city to local storage
-// add 5 day forecast
-// add icon
-// add UV index label
-// do css
 
 // telling html to run after input has been given
 $(document).ready(function () {
@@ -15,7 +10,6 @@ $(document).ready(function () {
     weatherSearch(searchValue);
   });
 
-  // var input = document.getElementById("myInput");TRYING TO GET ENTER KEY TO WORK
   $("searchValue").keypress(function (event) {
     // try to use keyCode === 13
     if (event.keyCode === 13) {
@@ -29,7 +23,6 @@ $(document).ready(function () {
 
   function createCityButton() {
     cityNames.forEach(function (city) {
-     
       var cityNameBtn = $("<button>").attr("data-type", city);
       cityNameBtn.text(city);
       cityNameBtn.attr("type", "button");
@@ -41,8 +34,6 @@ $(document).ready(function () {
     var btn = $("<button>").text(name);
     $(".city-container").append(btn)
   }
-
- 
   console.log($('[name="add-city-button"]'));
 
   $('[name="add-city-button"]').on("click", function () {
@@ -84,15 +75,10 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-      // if this city is already in the array
-      // if this city is not in the array
-      // only then add this to history
+      // console.log(duplicates);
       history.push(searchValue);
       localStorage.setItem("history", JSON.stringify(history));
       addButton(searchValue);
-      // history = list(dict.fromkeys(history));
-      // print_r(array_unique($a));
-
 
       console.log("This is the weather data: ", response);
 
@@ -136,18 +122,11 @@ $(document).ready(function () {
     // need to close function. do not put another function inside but order matters.
   }
 
-  // UV Index. strange but had to use jQuery to add lat and lon. added + in between the quotation marks.
-  // lat, lon read but not used. need to pass it to the API
   function getUV(lat, lon) {
     var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
     console.log(APIKey);
     var queryUV =
-      "https://api.openweathermap.org/data/2.5/uvi?lat=" +
-      lat +
-      "&lon=" +
-      lon +
-      "&appid=" +
-      APIKey;
+      "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
 
     console.log(queryUV);
     $.ajax({
@@ -177,19 +156,15 @@ $(document).ready(function () {
     });
   }
  
-
   function forecast(lat, lon) {
     //replaced (lat,lon) with (searchValue) and humidity showed up
     var APIKey = "76867f1d9d820e6fd45b355d5a55ddc8";
 
-
     // var part = hourly;
     console.log("Forecast", APIKey);
-    //     // API key for 5 days
-    //     // var fiveDayForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=" + APIKey;
-    var oneCallAPI =
-      "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=currently,minutely,hourly,alerts&appid=" + APIKey;
-    // var fiveDayForecast= "http://api.openweathermap.org/data/2.5/uvi?lat=" +lat+ "&lon=" +lon+ "&appid=" +APIKey;
+  
+    var oneCallAPI = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=currently,minutely,hourly,alerts&appid=" + APIKey;
+    var fiveDayForecast= "http://api.openweathermap.org/data/2.5/uvi?lat=" +lat+ "&lon=" +lon+ "&appid=" +APIKey;
     console.log("This is the var fivDayForecast: ", oneCallAPI);
 
     $.ajax({
@@ -215,15 +190,13 @@ $(document).ready(function () {
       $("#temp3").text(`Temperature (F): ${Math.round((response.daily[2].temp.day - 273.15) * 1.8 + 32)}°F`);
 
       $("#icon4").attr(
-        "src",
-        "https://openweathermap.org/img/wn/" + response.daily[3].weather[0].icon + "@2x.png");
+        "src","https://openweathermap.org/img/wn/" + response.daily[3].weather[0].icon + "@2x.png");
       $("#humidity4").text(`Humidity: ${response.daily[3].humidity}%`);
       $("#temp4").text(`Temperature (F): ${Math.round((response.daily[3].temp.day - 273.15) * 1.8 + 32)}°F`
       );
 
       $("#icon5").attr(
-        "src",
-        "https://openweathermap.org/img/wn/" + response.daily[4].weather[0].icon + "@2x.png");
+        "src", "https://openweathermap.org/img/wn/" + response.daily[4].weather[0].icon + "@2x.png");
       $("#humidity5").text(`Humidity: ${response.daily[4].humidity}%`);
       $("#temp5").text(`Temperature (F): ${Math.round((response.daily[4].temp.day - 273.15) * 1.8 + 32)}°F`);
 
@@ -236,10 +209,7 @@ $(document).ready(function () {
   for (var i=0; i< history.length; i++) {
     addButton(history[i]);
   }
-
-  
+ 
   weatherSearch(history[history.length -1])
   
-
-  // be able to click on a button and run the weather search function
 });
