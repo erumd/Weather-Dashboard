@@ -42,7 +42,6 @@ $(document).ready(function () {
 
     console.log("TEST EVENT LISTENER");
     $('[name="add-city"]').val();
-    // need to add the bottom to get value in a button****************I think this is missing piece.
     cityNames.push($('[name="add-city"]').val());
     $(".city-container").empty();
     createCityButton();
@@ -60,12 +59,7 @@ $(document).ready(function () {
     console.log(APIKey);
 
     // Here we are building the URL we need to query the database
-    var queryURL =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      searchValue +
-      "&appid=" +
-      APIKey;
-
+    var queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=" + APIKey;
     console.log(queryURL, "this is with search results");
 
     //  var city = $('#cityId').attr("data-type");
@@ -75,32 +69,20 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-      // console.log(duplicates);
       history.push(searchValue);
       localStorage.setItem("history", JSON.stringify(history));
       addButton(searchValue);
-
       console.log("This is the weather data: ", response);
 
       // display city and moment using date.Yay
-      $(".city").html(
-        `<h2>${response.name} ( ${moment().format("MMMM DD, YYYY")} ) </h2>`
-      );
-      $("#icon0").attr(
-        "src",
-        "https://openweathermap.org/img/wn/" +
-          response.weather[0].icon +
-          "@2x.png"
-      );
+      $(".city").html(`<h2>${response.name} ( ${moment().format("MMMM DD, YYYY")} ) </h2>`);
+      $("#icon0").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
       localStorage.setItem("city", `${response.name}`);
       $(".wind").text(`Wind Speed: ${response.wind.speed} MPH`);
       $(".humidity").text(`Humidity: ${response.main.humidity}%`);
-      // $(".precipitation").text(`Precipitation: ${response.precipitation}%`);
 
       let temp = `Temperature (k): ${response.main.temp}`;
-      temp += `<br />Temperature (F): ${Math.round(
-        (response.main.temp - 273.15) * 1.8 + 32
-      )}°F`;
+      temp += `<br />Temperature (F): ${Math.round((response.main.temp - 273.15) * 1.8 + 32)}°F`;
       $(".temp").html(temp);
       // have to add .coord. learned from console
       lat = response.coord.lat;
@@ -209,7 +191,5 @@ $(document).ready(function () {
   for (var i=0; i< history.length; i++) {
     addButton(history[i]);
   }
- 
   weatherSearch(history[history.length -1])
-  
 });
